@@ -26,6 +26,7 @@ class Simulation:
 
     #animating
     animate = FuncAnimation(fig, update, frames=list(range(0, len(data["altitude"]), 5)) + [len(data["altitude"])-1], fargs=(apollo_11, Polygon_verticies, data), interval=33, blit=True, repeat = False)
+    animate.save("2dLander.gif", writer = "pillow", fps = 33)
     plt.show()
-    
+
 simulate = Simulation()
