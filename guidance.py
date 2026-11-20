@@ -12,6 +12,7 @@ class Guidance:
                                "thrust":[self.space_ship.thrust], 
                                "altitude":[self.space_ship.altitude]
                               }
+    
         
 
     def simulation(self):
@@ -33,7 +34,7 @@ class Guidance:
             if self.space_ship.altitude < 1.7 and abs(self.space_ship.velocity)<1:
                 self.free_fall()
                 break
-
+    
         impact_speed = math.sqrt((self.space_ship.velocity)**2 + (2*self.lunar.gravity*self.space_ship.altitude))
         if impact_speed < 3.05:
             print("succesfully landed")
@@ -41,6 +42,7 @@ class Guidance:
             print(f"new spaceship thrust {self.space_ship.thrust}, new altitude {self.space_ship.altitude}, new velocity {self.space_ship.velocity}, new acceleration {self.space_ship.acceleration}")
         else:
             print("crashed")
+        return self.data_collected
 
     def free_fall(self):
         self.space_ship.thrust = 0
@@ -54,11 +56,9 @@ class Guidance:
             self.data_collected["time"].append(new_time)
             self.space_ship.velocity -=self.lunar.gravity*self.dt
             self.space_ship.altitude += self.space_ship.velocity *self.dt
-            if self.space_ship.altitude < 0:
-                self.space_ship.altitude = 0
-                self.data_collected["altitude"].append(self.space_ship.altitude)
-                break
+            self.space_ship.altitude = max(self.space_ship.altitude, 0)
             self.data_collected["altitude"].append(self.space_ship.altitude)
-guide = Guidance()
-guide.simulation()
+if __name__ == "__main__":
+    guide = Guidance()
+    guide.simulation()
             
