@@ -1,6 +1,7 @@
 # Lunar Lander Simulator (Apollo 11)
 -![Lunar lander descent animation](2dLander.gif)
 
+
 A physics based simulation, that models the lunar module of apollo 11's descent, currently I use the altitude 213 meters, and -6.4m/s velocity for its initial values but this can be changed accordingly and the lander will continue to work as long as the numbers are within 700ft to 100ft. I worked through some of the derivations of it from the NASA site.
 
 ## What it does
@@ -42,11 +43,14 @@ A physics based simulation, that models the lunar module of apollo 11's descent,
   - Lunar lander not drawn to scale in the animation
 
 ## Things to work on
-  - Add more plots like thrust over time
+  - Add more plots
   - Look into horizontal motion as well
   - Add mascons
   - Experiment with different control systems
   - Experiment with different landing manuevers (suicide burn)
+
+## Results
+  -![Thrust over Time Plot](thrust.png)
 
 ## Sources
   - Apollo 11 landing transcript: nasa.gov
