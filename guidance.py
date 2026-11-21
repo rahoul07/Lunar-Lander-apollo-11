@@ -10,7 +10,8 @@ class Guidance:
         self.thrust_max = 2.1*(self.space_ship.curr_mass * self.lunar.gravity)
         self.data_collected = {"time":[0.0],
                                "thrust":[self.space_ship.thrust], 
-                               "altitude":[self.space_ship.altitude]
+                               "altitude":[self.space_ship.altitude],
+                               "velocity":[self.space_ship.velocity]
                               }
     
         
@@ -27,6 +28,7 @@ class Guidance:
             self.space_ship.update_flight_comp(self.dt, mass_flow_rate)
             new_time = self.data_collected["time"][-1]+self.dt
             self.data_collected["time"].append(new_time)
+            self.data_collected["velocity"].append(self.space_ship.velocity)
             self.data_collected["altitude"].append(self.space_ship.altitude)
             if n%10 == 0:
                 print(f"new spaceship thrust {self.space_ship.thrust}, new altitude {self.space_ship.altitude}, new velocity {self.space_ship.velocity}, new acceleration {self.space_ship.acceleration}")
@@ -37,6 +39,11 @@ class Guidance:
     
         impact_speed = math.sqrt((self.space_ship.velocity)**2 + (2*self.lunar.gravity*self.space_ship.altitude))
         if impact_speed < 3.05:
+            new_time = self.data_collected["time"][-1]+self.dt
+            self.data_collected["time"].append(new_time)
+            self.data_collected["velocity"].append(0)
+            self.data_collected["altitude"].append(0)
+            self.data_collected["thrust"].append(0)
             print("succesfully landed")
             print(impact_speed)
             print(f"new spaceship thrust {self.space_ship.thrust}, new altitude {self.space_ship.altitude}, new velocity {self.space_ship.velocity}, new acceleration {self.space_ship.acceleration}")
@@ -54,7 +61,8 @@ class Guidance:
             self.data_collected["thrust"].append(self.space_ship.thrust)
             new_time = self.data_collected["time"][-1]+self.dt
             self.data_collected["time"].append(new_time)
-            self.space_ship.velocity -=self.lunar.gravity*self.dt
+            self.space_ship.velocity -= self.lunar.gravity*self.dt
+            self.data_collected["velocity"].append(self.space_ship.velocity)
             self.space_ship.altitude += self.space_ship.velocity *self.dt
             self.space_ship.altitude = max(self.space_ship.altitude, 0)
             self.data_collected["altitude"].append(self.space_ship.altitude)
