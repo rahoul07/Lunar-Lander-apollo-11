@@ -12,6 +12,14 @@ class Simulation:
     fig, ax = plt.subplots()
     ax.set_xlim(0, 100)
     ax.set_ylim(0, data["altitude"][0]+15)
+    #adding a thrust over time graph
+    f, a = plt.subplots()
+    a.plot(data["time"], data["thrust"])
+    a.set_ylim(24800, 26100)
+    a.set_xlabel("Time (s)")
+    a.set_ylabel("Thrust (N)")
+    a.set_title("Thrust over Time")
+    a.grid(True)
 
     # drawing the landing module
     # square (45, 200), (45, 195), (55, 200), (55, 195) plus a parallelogram (45, 195), (40, 190), (55, 195), (60, 190)
@@ -27,6 +35,8 @@ class Simulation:
     #animating
     animate = FuncAnimation(fig, update, frames=list(range(0, len(data["altitude"]), 5)) + [len(data["altitude"])-1], fargs=(apollo_11, Polygon_verticies, data), interval=33, blit=True, repeat = False)
     animate.save("2dLander.gif", writer = "pillow", fps = 33)
+    # thrust graph
+    plt.savefig("thrust.png")
     plt.show()
 
 simulate = Simulation()
