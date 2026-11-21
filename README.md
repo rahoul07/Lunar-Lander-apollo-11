@@ -51,6 +51,7 @@ A physics based simulation, that models the lunar module of apollo 11's descent,
 
 ## Results
   -![Thrust over Time Plot](thrust.png)
+  -![Velocity over Time Plot](velocity.png)
 
 ## Sources
   - Apollo 11 landing transcript: nasa.gov
