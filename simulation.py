@@ -14,7 +14,7 @@ class Simulation:
     ax.set_ylim(0, data["altitude"][0]+15)
     #adding a thrust over time graph
     f, a = plt.subplots()
-    a.plot(data["time"], data["thrust"])
+    a.plot(data["time"][1:], data["thrust"][1:])
     a.set_ylim(24800, 26100)
     a.set_xlabel("Time (s)")
     a.set_ylabel("Thrust (N)")
