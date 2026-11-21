@@ -2,7 +2,7 @@
 -![Lunar lander descent animation](2dLander.gif)
 
 
-A physics based simulation, that models the lunar module of apollo 11's descent, currently I use the altitude 213 meters, and -6.4m/s velocity for its initial values but this can be changed accordingly and the lander will continue to work as long as the numbers are within 700ft to 100ft. I worked through some of the derivations of it from the NASA site.
+A physics based simulation, that models the lunar module of apollo 11's descent, currently I use the altitude 213 meters, and -6.4m/s velocity for its initial values but this can be changed accordingly and the lander will continue to work as long as the numbers are within 700ft to 100ft. I worked through some of the derivations of it from the NASA site, it can be seen in the PHYSICS.md 
 
 ## What it does
   - Starts the lander at 213.4 meters, -6.4 m/s velocity numbers gotten from Buzz aldrins call out
