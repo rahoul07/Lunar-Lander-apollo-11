@@ -7,7 +7,8 @@ class Guidance:
         self.space_ship = Space_ship()
         self.lunar = Lunar_Environment()
         self.dt = 0.02
-        self.thrust_max = 2.1*(self.space_ship.curr_mass * self.lunar.gravity)
+        self.max_thrust_rate = 85000
+        self.time_lag = 0.075
         self.data_collected = {"time":[0.0],
                                "thrust":[self.space_ship.thrust], 
                                "altitude":[self.space_ship.altitude],
@@ -20,8 +21,10 @@ class Guidance:
         n = 0
         while self.space_ship.altitude > 0:
             #gonna use V^2= Vo^2 + 2achange in x
-            new_a = ((self.space_ship.velocity)**2)/(2*self.space_ship.altitude)
-            self.space_ship.thrust = ((self.space_ship.curr_mass * self.lunar.gravity)+(self.space_ship.curr_mass*new_a))
+            new_a = ((self.space_ship.velocity)**2)/(2*self.space_ship.altitude) *math.copysign(1, -self.space_ship.velocity)
+            thrust_needed = ((self.space_ship.curr_mass * self.lunar.gravity)+(self.space_ship.curr_mass*new_a))
+            dr = min((abs(thrust_needed-self.space_ship.thrust))/0.075, (self.max_thrust_rate))
+            self.space_ship.thrust = self.space_ship.thrust+(dr*self.dt*(math.copysign(1, (thrust_needed-self.space_ship.thrust))))
             self.data_collected["thrust"].append(self.space_ship.thrust)
             mass_flow_rate = (self.space_ship.thrust/(self.space_ship.isp * 9.80665))
             self.space_ship.calc_acceleration(self.lunar.gravity)
@@ -66,6 +69,7 @@ class Guidance:
             self.space_ship.altitude += self.space_ship.velocity *self.dt
             self.space_ship.altitude = max(self.space_ship.altitude, 0)
             self.data_collected["altitude"].append(self.space_ship.altitude)
+
 if __name__ == "__main__":
     guide = Guidance()
     guide.simulation()
